@@ -1,3 +1,6 @@
+api/__pycache__/
+api/v1/__pycache__/
+api/v1/views/__pycache__/
 env/
 models/__pycache__/
 models/engine/__pycache__/
