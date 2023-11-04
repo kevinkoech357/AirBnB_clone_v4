@@ -9,6 +9,23 @@ $(document).ready(function () {
     $('.amenities h4').text(amenitiesList);
   }
 
+  // Function to update the availability status
+  function updateApiStatus () {
+    $.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
+      if (data.status === 'OK') {
+        $('#api_status').addClass('available');
+      } else {
+        $('#api_status').removeClass('available');
+      }
+    });
+
+    // Initial check and update
+    updateApiStatus();
+
+    // Periodically check and update every 5 seconds
+    setInterval(updateApiStatus, 5000);
+  }
+
   // Listen for changes on input checkboxes
   $('input[type=checkbox][name=amenity]').change(function () {
     const amenityName = $(this).data('name'); // Get the Amenity name from the data-name attribute
@@ -27,23 +44,4 @@ $(document).ready(function () {
     // Update the list of checked amenities
     updateAmenitiesList();
   });
-});
-
-$(document).ready(function () {
-  // Function to update the availability status
-  function updateApiStatus () {
-    $.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
-      if (data.status === 'OK') {
-        $('#api_status').addClass('available');
-      } else {
-        $('#api_status').removeClass('available');
-      }
-    });
-  }
-
-  // Initial check and update
-  updateApiStatus();
-
-  // Periodically check and update every 5 seconds
-  setInterval(updateApiStatus, 5000);
 });
